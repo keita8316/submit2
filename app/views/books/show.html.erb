@@ -11,16 +11,30 @@
 <%= @user.introduction %>
 <%= link_to "edit", edit_user_path(@user) %>
 
-<br>
-<div class="book">
-<p><b>Title:</b>
-<%= @book.title %></p><br>
-<p><b>Body:</b>
-<%= @book.body %></p>
-</div><br>
-<%= link_to "Edit", edit_book_path(@book.id) %>
-<span>|</span>
-<%= link_to "Back", user_path(@user) %>
+<p>
+<table>
+    <thead>
+        <tr>
+            <th class="title">Title</th>
+            <th class="body">Body</th>
+            <th class="link"></th>
+        </tr>
+    </thead>
+    <tbody>
+      
+        <tr>
+            <td class="title"><%= @hon.title %></td>
+            <td class="body"><%= @hon.body %></td>
+            <td class="link">
+              <%= link_to "Edit", edit_book_path(@hon) %>
+              <span>&nbsp</span>
+              <%= link_to "Destroy", book_path(@hon),method: :delete, data: {confirm: "Are you sure?"} %>
+            </td>
+        </tr>
+     
+    </tbody>
+</table>
+</P>
 
 <h1>New book</h1>
 

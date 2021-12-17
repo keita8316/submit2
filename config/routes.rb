@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   root to: 'homes#index'
   resources :users
   resources :books
-  
+  get 'about', to:'homes#about'
 
 end
