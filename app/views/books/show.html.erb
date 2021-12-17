@@ -1,0 +1,18 @@
+<h1>Books#show</h1>
+<p>Find me in app/views/books/show.html.erb</p>
+<p class="message">
+<% flash.each do |message_type, message| %>
+  <%= message %>
+<% end %>
+</p>
+<br>
+<div class="book">
+<p><b>Title:</b>
+<%= @book.title %></p><br>
+<p><b>Body:</b>
+<%= @book.body %></p>
+</div><br>
+<%= link_to "Edit", edit_book_path(@book) %>
+<span>|</span>
+<%= link_to "Back", books_path %>
+

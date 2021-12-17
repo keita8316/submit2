@@ -1,0 +1,17 @@
+<h1>Users#edit</h1>
+<p>Find me in app/views/users/edit.html.erb</p>
+
+<%= form_with model: @user, local: true do |f| %>
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :profile_image %>
+<%= f.attachment_field :profile_image %>
+
+<%= f.label :introduction %>
+<%= f.text_field :introduction %>
+
+<%= f.submit %>
+
+<% end %>
