@@ -1,34 +1,42 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+
 <p class="message">
 <% flash.each do |message_type, message| %>
   <%= message %>
 <% end %>
 </p>
 
-<%= attachment_image_tag @user, :profile_image, fallback: "no-image.png" %>
-<%= @user.name %>
-<%= @user.introduction %>
-<%= link_to "edit", edit_user_path(@user) %>
+<%= attachment_image_tag @hito, :profile_image, fallback: "no-image.png" %>
+<%= @hito.name %>
+<%= @hito.introduction %>
+<%= link_to edit_user_path(@hito) do %>
+    <i class="fas fa-user-cog"></i>
+<% end %>
+
+
 
 <p>
+<h1>Book detail</h1>
 <table>
     <thead>
         <tr>
-            <th class="title">Title</th>
-            <th class="body">Body</th>
+            <th class="user"></th>
+            <th class="title"></th>
+            <th class="body"></th>
             <th class="link"></th>
         </tr>
     </thead>
     <tbody>
       
         <tr>
+            <td class="user"><%= link_to (attachment_image_tag @hito, :profile_image, fallback: "no-image.png"), user_path(@hito) %><br><%= link_to @hito.name, user_path(@hito) %></td>
             <td class="title"><%= @hon.title %></td>
             <td class="body"><%= @hon.body %></td>
             <td class="link">
-              <%= link_to "Edit", edit_book_path(@hon) %>
-              <span>&nbsp</span>
-              <%= link_to "Destroy", book_path(@hon),method: :delete, data: {confirm: "Are you sure?"} %>
+                <% if @hon.user.id == current_user.id %>
+                    <%= link_to "Edit", edit_book_path(@hon), class: "btn btn-secondary" %>
+                    <span>&nbsp</span>
+                    <%= link_to "Destroy", book_path(@hon),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-secondary" %>
+                <% end %>
             </td>
         </tr>
      

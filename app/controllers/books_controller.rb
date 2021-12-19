@@ -3,6 +3,7 @@ class BooksController < ApplicationController
     @book = Book.new
     @books = Book.all
     @user = User.find(current_user.id)
+    
   end
     
   def show
@@ -10,6 +11,7 @@ class BooksController < ApplicationController
     @hon = Book.find(params[:id])
     @user = User.find(current_user.id)
     @books = Book.all
+    @hito = User.find(@hon.user_id)
   end
     
   def new
@@ -25,7 +27,7 @@ class BooksController < ApplicationController
       redirect_to book_path(@book)
     else
       flash[:alert] = 'error!Book was not successfully created.'
-      render :index
+      redirect_to books_path
     end
         
   end

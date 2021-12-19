@@ -1,3 +1,9 @@
-<h1>welcome to Bookers!!</h1>
+ <p class="message">
+        <% flash.each do |message_type, message| %>
+          <%= message %>
+        <% end %>
+        
+</p>
+<h1>welcome to <i class="fas fa-book"></i>Bookers!!</h1>
 <%= link_to "Log in", new_user_session_path %>
-<%= link_to "Sign in", new_user_registration_path %>
+<%= link_to "Sign up", new_user_registration_path %>

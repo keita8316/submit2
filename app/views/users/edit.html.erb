@@ -1,6 +1,11 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
-
+<p class="message">
+<% flash.each do |message_type, message| %>
+  <%= message %>
+<% end %>
+</p>
+<br>
+<br>
+<br>
 <%= form_with model: @user, local: true do |f| %>
 
 <%= f.label :name %>

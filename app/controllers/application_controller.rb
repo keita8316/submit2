@@ -21,4 +21,13 @@ class ApplicationController < ActionController::Base
         root_path(resource)
     end
     
+    before_action :authenticate_user!, if: :use_auth?
+
+    private
+
+    def use_auth?
+        unless controller_name == 'homes' && (action_name == 'index' or action_name == 'about')
+            true
+        end
+    end
 end
