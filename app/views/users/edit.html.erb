@@ -1,22 +1,35 @@
+
+<br>
+<br>
+<br>
+<div class="home">
+<p class="error">
+<% if @user.errors.any? %>
+  <%= @user.errors.count %>error!
+  <% @user.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+</p>
 <p class="message">
 <% flash.each do |message_type, message| %>
   <%= message %>
 <% end %>
 </p>
+<h1>User info</h1>
+<%= form_with model: @user, url:user_path(@user), local: true do |f| %>
+
+<%= f.label :name %><br>
+<%= f.text_field :name %><br>
 <br>
+<%= f.label :Image %><br>
+<%= f.attachment_field :profile_image %><br>
 <br>
+<%= f.label :introduction %><br>
+<%= f.text_field :introduction %><br>
 <br>
-<%= form_with model: @user, local: true do |f| %>
-
-<%= f.label :name %>
-<%= f.text_field :name %>
-
-<%= f.label :profile_image %>
-<%= f.attachment_field :profile_image %>
-
-<%= f.label :introduction %>
-<%= f.text_field :introduction %>
-
 <%= f.submit %>
 
 <% end %>
+
+</div>

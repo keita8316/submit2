@@ -4,61 +4,77 @@
   <%= message %>
 <% end %>
 </p>
-
-<%= attachment_image_tag @hito, :profile_image, fallback: "no-image.png" %>
-<%= @hito.name %>
-<%= @hito.introduction %>
-<%= link_to edit_user_path(@hito) do %>
-    <i class="fas fa-user-cog"></i>
-<% end %>
-
-
-
-<p>
-<h1>Book detail</h1>
-<table>
-    <thead>
-        <tr>
-            <th class="user"></th>
-            <th class="title"></th>
-            <th class="body"></th>
-            <th class="link"></th>
-        </tr>
-    </thead>
-    <tbody>
-      
-        <tr>
-            <td class="user"><%= link_to (attachment_image_tag @hito, :profile_image, fallback: "no-image.png"), user_path(@hito) %><br><%= link_to @hito.name, user_path(@hito) %></td>
-            <td class="title"><%= @hon.title %></td>
-            <td class="body"><%= @hon.body %></td>
-            <td class="link">
-                <% if @hon.user.id == current_user.id %>
-                    <%= link_to "Edit", edit_book_path(@hon), class: "btn btn-secondary" %>
-                    <span>&nbsp</span>
-                    <%= link_to "Destroy", book_path(@hon),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-secondary" %>
+<div class="container">
+  <div class="row"> 
+    <div class="col-md-3">
+        <p>
+            <h2>User info</h2>
+            <%= attachment_image_tag @hito, :profile_image, fallback: "no-image.png", size: '100x100' %><br>
+            <table>
+                <tr>
+                    <th>name</th><td><%= @hito.name %></td>
+                </tr>
+                <tr>
+                    <th>introduction</th><td><%= @hito.introduction %></td>
+                </tr>
+            </table>
+            <div class="cog">
+                <%= link_to edit_user_path(@hito),class: "btn btn-secondary" do %>
+                    <i class="fas fa-user-cog"></i>
                 <% end %>
-            </td>
-        </tr>
-     
-    </tbody>
-</table>
-</P>
+            </div>
+            
+            <br>
+            <h2>New book</h2>
+            
+            <%= form_with model:@book, url:books_path, local:true do |f| %>
+            
+              <p>Title<br>
+              <%= f.text_field :title %>
+              </p>
+              <p>Body<br>
+              <%= f.text_area :body %>
+              </p>
+              <p>
+              <%= f.submit "Create Book" %>
+              </p>
+            <% end %>
+        </p>
+        
+    </div>
+    <div class="col-md-8 offset-md-1">
+        
+        <p>
+            <h1>Book detail</h1>
+            
+            <table class="table table-striped">
+                
+                <tbody>
+                  
+                    <tr>
+                        <td class="user"><%= link_to (attachment_image_tag @hito, :profile_image, fallback: "no-image.png", size: '100x100'), user_path(@hito) %><br><%= link_to @hito.name, user_path(@hito) %></td>
+                        <td class="title"><%= @hon.title %></td>
+                        <td class="body"><%= @hon.body %></td>
+                        <td class="link">
+                            <% if @hon.user.id == current_user.id %>
+                                <%= link_to "Edit", edit_book_path(@hon), class: "btn btn-secondary" %>
+                                <span>&nbsp</span>
+                                <%= link_to "Destroy", book_path(@hon),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-secondary" %>
+                            <% end %>
+                        </td>
+                    </tr>
+                 
+                </tbody>
+            </table>
+        </P>
+        
+    </div>
+  </div>
+</div>
 
-<h1>New book</h1>
 
-<%= form_with model:@book, url:books_path, local:true do |f| %>
 
-  <p>Title<br>
-  <%= f.text_field :title %>
-  </p>
-  <p>Body<br>
-  <%= f.text_area :body %>
-  </p>
-  <p>
-  <%= f.submit "Create Book" %>
-  </p>
-<% end %>
-</p>
+
 
 
 

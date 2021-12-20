@@ -1,4 +1,7 @@
 class BooksController < ApplicationController
+  
+  before_action :authenticate_user!
+  
   def index
     @book = Book.new
     @books = Book.all
@@ -19,7 +22,8 @@ class BooksController < ApplicationController
   end
     
   def create
-    
+    @books = Book.all
+    @user = User.find(current_user.id)
     @book = Book.new(book_params)
     @book.user_id = current_user.id
     if @book.save
@@ -27,23 +31,32 @@ class BooksController < ApplicationController
       redirect_to book_path(@book)
     else
       flash[:alert] = 'error!Book was not successfully created.'
-      redirect_to books_path
+      render :index
     end
         
   end
     
   def edit
     @book = Book.find(params[:id])
+    if @book.user != current_user 
+      redirect_to books_path
+    end
   end
     
   def update
     @book = Book.find(params[:id])
-    if @book.update(book_params)
-      flash[:success] = 'Book was successfully update.'
-      redirect_to book_path(@book)
+    @user = @book.user
+    if @user.id == current_user.id
+      
+      if @book.update(book_params)
+        flash[:success] = 'Book was successfully update.'
+        redirect_to book_path(@book)
+      else
+        flash[:alert] = 'error!Book was not successfully update.'
+        render :edit
+      end
     else
-      flash[:alert] = 'error!Book was not successfully update.'
-      redirect_to edit_book_path(@book)
+      redirect_to books_path
     end
         
   end
@@ -63,4 +76,6 @@ class BooksController < ApplicationController
   def book_params
     params.require(:book).permit(:title, :body)
   end
+  
+
 end

@@ -4,6 +4,8 @@
         <% end %>
         
 </p>
-<h1>welcome to <i class="fas fa-book"></i>Bookers!!</h1>
-<%= link_to "Log in", new_user_session_path %>
-<%= link_to "Sign up", new_user_registration_path %>
+<div class="home">
+    <h1>welcome to <i class="fas fa-book"></i>Bookers!!</h1><br><br>
+    <%= link_to "Log in", new_user_session_path, class: "btn btn-secondary" %><br><br>
+    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-secondary" %>
+</div>
