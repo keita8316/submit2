@@ -55,6 +55,18 @@
                         <td class="user"><%= link_to (attachment_image_tag @hito, :profile_image, fallback: "no-image.png", size: '100x100'), user_path(@hito) %><br><%= link_to @hito.name, user_path(@hito) %></td>
                         <td class="title"><%= @hon.title %></td>
                         <td class="body"><%= @hon.body %></td>
+                        <td class="good">
+                            <% if current_user.iine(@hon) %>
+                              <%= link_to book_favorites_path(@hon), method: :delete do %>
+                                <i class="fas fa-heart"></i>
+                              <% end %>
+                            <% else %>
+                              <%= link_to book_favorites_path(@hon), method: :post do %>
+                                <i class="far fa-heart"></i>
+                              <% end %>
+                            <% end %>
+                            <%= @hon.favorites.count %>
+                        </td>
                         <td class="link">
                             <% if @hon.user.id == current_user.id %>
                                 <%= link_to "Edit", edit_book_path(@hon), class: "btn btn-secondary" %>
@@ -66,6 +78,18 @@
                  
                 </tbody>
             </table>
+            <div>
+                <p><%= @hon.book_comments.count %></p>
+                <%= form_with(model:[@hon, @book_comment], local: true) do |f| %>
+                
+                  <p>comment<br>
+                  <%= f.text_area :comment %>
+                  </p>
+                  <p>
+                  <%= f.submit "post" %>
+                  </p>
+                <% end %>
+            </div>
         </P>
         
     </div>

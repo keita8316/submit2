@@ -15,6 +15,7 @@ class BooksController < ApplicationController
     @user = User.find(current_user.id)
     @books = Book.all
     @hito = User.find(@hon.user_id)
+    @book_comment = BookComment.new
   end
     
   def new
