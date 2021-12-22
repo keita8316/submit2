@@ -1,5 +1,7 @@
 class BookCommentsController < ApplicationController
     
+    before_action :authenticate_user!
+        
     def create
         #@user = User.find(current_user.id)
        # book = Book.find(params[:book_id])
@@ -16,20 +18,22 @@ class BookCommentsController < ApplicationController
         @book_comment = @book.book_comments.new(comment_params)
         @book_comment.user_id = current_user.id
         if @book_comment.save
-          redirect_back(fallback_location: root_path)
+          redirect_to book_path(@book)
         else
           @book_new = Book.new
-          @book_comments = @book.comments
-          redirect_back(fallback_location: root_path)
+          @book_comments = @book.book_comments
+          #redirect_back(fallback_location: root_path)
+          redirect_to book_path(@book)
         end
     end
     
     def destroy
-        #@book = Book.find[:book_id]
+        @book = Book.find(params[:book_id])
         #comment = BookComment.find(params[:id])
         #BookComment.find_by(id: params[:id], book_id: params[:book_id]).destroy
-        BookComment.find_by(id: params[:id]).destroy
-        redirect_back(fallback_location: root_path)
+        #BookComment.find_by(id: params[:id]).destroy
+        current_user.book_comments.find(params[:id]).destroy
+        redirect_to book_path(@book)
         
     end
     
