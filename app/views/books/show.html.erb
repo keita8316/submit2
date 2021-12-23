@@ -109,6 +109,7 @@
                       <td class="link">
                         <% if comment.user.id == current_user.id %>
                           <%= link_to "Destroy", book_book_comment_path(@hon,comment),method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-secondary" %>
+                          
                         <% end %>
                       </td>
                     </tr>
